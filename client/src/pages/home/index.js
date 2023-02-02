@@ -1,6 +1,8 @@
 import styles from './styles.module.css';
+import { useNavigate } from 'react-router-dom'; 
 
 const Home = ({ username, setUsername, room, setRoom, socket }) => {
+  const navigate = useNavigate();
 
   const joinRoom = () => {
     if (room !== '' && username !== '') {
@@ -24,7 +26,7 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
           <option value='react'>Fifa</option>
         </select>
 
-        <button className='btn btn-secondary' style={{ width: '100%' }}>Join Room</button>
+        <button className='btn btn-secondary' style={{ width: '100%' }} onClick={joinRoom}>Join Room</button>
       </div>
     </div>
   );
