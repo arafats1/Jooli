@@ -1,6 +1,15 @@
 import styles from './styles.module.css';
 
 const Home = ({ username, setUsername, room, setRoom, socket }) => {
+
+  const joinRoom = () => {
+    if (room !== '' && username !== '') {
+      socket.emit('join_room', { username, room });
+    }
+      // Redirect to /chat
+      navigate('/chat', { replace: true });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
