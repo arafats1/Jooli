@@ -8,7 +8,7 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
     if (room !== '' && username !== '') {
       socket.emit('join_room', { username, room });
     }
-      // Redirect to /chat
+      // Redirect to /chat route
       navigate('/chat', { replace: true });
   };
 
