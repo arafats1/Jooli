@@ -16,6 +16,13 @@ const io = new Server(server, {
     },
   });
 
+  // Listen for when the client connects via socket.io-client
+io.on('connection', (socket) => {
+    console.log(`User connected ${socket.id}`);
+  
+
+  });
+
 app.get('/', (req, res) => {
     res.send('Hello world');
   });
