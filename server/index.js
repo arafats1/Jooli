@@ -17,10 +17,18 @@ const io = new Server(server, {
 });
 
 const CHAT_BOT = 'ChatBot';
+let chatRoom = ''; 
+let allUsers = []; 
 
 // Listen for when the client connects via socket.io-client
 io.on('connection', (socket) => {
     console.log(`User connected ${socket.id}`);
+    // Save the new user to the room
+    chatRoom = room;
+    allUsers.push({ id: socket.id, username, room });
+    chatRoomUsers = allUsers.filter((user) => user.room === room);
+    socket.to(room).emit('chatroom_users', chatRoomUsers);
+    socket.emit('chatroom_users', chatRoomUsers);
 });
 
 // Add a user to a room
