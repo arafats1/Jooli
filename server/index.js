@@ -41,9 +41,7 @@ socket.on('join_room', (data) => {
      chatRoomUsers = allUsers.filter((user) => user.room === room);
      socket.to(room).emit('chatroom_users', chatRoomUsers);
      socket.emit('chatroom_users', chatRoomUsers);
-});
-
-   
+});   
 });
 
 
