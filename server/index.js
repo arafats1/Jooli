@@ -8,7 +8,7 @@ app.use(cors()); // Add cors middleware
 
 const server = http.createServer(app);
 
-// Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
+// Create an io server and allow for CORS from http://localhost:3000 with GET and POST methodss
 const io = new Server(server, {
     cors: {
         origin: 'http://localhost:3000',
