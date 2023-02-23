@@ -23,15 +23,8 @@ let allUsers = [];
 // Listen for when the client connects via socket.io-client
 io.on('connection', (socket) => {
     console.log(`User connected ${socket.id}`);
-    // Save the new user to the room
-    chatRoom = room;
-    allUsers.push({ id: socket.id, username, room });
-    chatRoomUsers = allUsers.filter((user) => user.room === room);
-    socket.to(room).emit('chatroom_users', chatRoomUsers);
-    socket.emit('chatroom_users', chatRoomUsers);
-});
 
-// Add a user to a room
+    // Add a user to a room
 socket.on('join_room', (data) => {
     const { username, room } = data; // Data sent from client when join_room event emitted
     socket.join(room); // Join the user to a socket room
@@ -42,7 +35,18 @@ socket.on('join_room', (data) => {
       username: CHAT_BOT,
       __createdtime__,
     });
+     // Save the new user to the room
+     chatRoom = room;
+     allUsers.push({ id: socket.id, username, room });
+     chatRoomUsers = allUsers.filter((user) => user.room === room);
+     socket.to(room).emit('chatroom_users', chatRoomUsers);
+     socket.emit('chatroom_users', chatRoomUsers);
 });
+
+   
+});
+
+
 
 app.get('/', (req, res) => {
     res.send('Hello world');
