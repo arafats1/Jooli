@@ -22,7 +22,7 @@ const Messages = ({ socket }) => {
     return () => socket.off('receive_message');
   }, [socket]);
 
-  // dd/mm/yyyy, hh:mm:ss.
+  // dd/mm/yyyy, hh:mm:ss
   function formatDateFromTimestamp(timestamp) {
     const date = new Date(timestamp);
     return date.toLocaleString();
