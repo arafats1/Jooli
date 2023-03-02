@@ -27,6 +27,10 @@ function App() {
               />
             }
           />
+          <Route
+            path='/chat'
+            element={<Chat username={username} room={room} socket={socket} />}
+          />
         </Routes>
       </div>
     </Router>
