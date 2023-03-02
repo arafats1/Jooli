@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 const Messages = ({ socket }) => {
   const [messagesRecieved, setMessagesReceived] = useState([]);
 
-  // Runs whenever a socket event is received from the server
+  // Runs whenever a socket event is recieved from the server
   useEffect(() => {
     socket.on('receive_message', (data) => {
       console.log(data);
