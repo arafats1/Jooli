@@ -2,9 +2,12 @@ import styles from './styles.module.css';
 import { useState, useEffect, useRef } from 'react';
 
 const Messages = ({ socket }) => {
-  const [messagesRecieved, setMessagesReceived] = useState([]);
+  const [messagesRecieved, setMessagesReceived] = useState(() => {
+    const storedMessages = localStorage.getItem('messagesReceived');
+    return storedMessages ? JSON.parse(storedMessages) : [];
+  });
 
-  const messagesColumnRef = useRef(null);
+  const messagesColumnRef = useRef(null); 
 
   // Runs whenever a socket event is recieved from the server
   useEffect(() => {
@@ -20,10 +23,10 @@ const Messages = ({ socket }) => {
       ]);
     });
 
-	// Remove event listener on component unmount
+    // Remove event listener on component unmount
     return () => socket.off('receive_message');
   }, [socket]);
-
+  
   useEffect(() => {
     // Last 100 messages sent in the chat room (fetched from the db in backend)
     socket.on('last_100_messages', (last100Messages) => {
@@ -33,6 +36,7 @@ const Messages = ({ socket }) => {
       last100Messages = sortMessagesByDate(last100Messages);
       setMessagesReceived((state) => [...last100Messages, ...state]);
     });
+
     return () => socket.off('last_100_messages');
   }, [socket]);
 
@@ -40,6 +44,11 @@ const Messages = ({ socket }) => {
   useEffect(() => {
     messagesColumnRef.current.scrollTop =
       messagesColumnRef.current.scrollHeight;
+  }, [messagesRecieved]);
+
+   // Store messagesReceived in local storage whenever it changes
+   useEffect(() => {
+    localStorage.setItem('messagesReceived', JSON.stringify(messagesRecieved));
   }, [messagesRecieved]);
 
   function sortMessagesByDate(messages) {
@@ -55,7 +64,8 @@ const Messages = ({ socket }) => {
   }
 
   return (
-    <div className={styles.messagesColumn}>
+    // Add ref to this div
+    <div className={styles.messagesColumn} ref={messagesColumnRef}>
       {messagesRecieved.map((msg, i) => (
         <div className={styles.message} key={i}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>

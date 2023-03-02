@@ -83,6 +83,18 @@ io.on('connection', (socket) => {
         });
         console.log(`${username} has left the chat`);
       });
+
+      socket.on('disconnect', () => {
+        console.log('User disconnected from the chat');
+        const user = allUsers.find((user) => user.id == socket.id);
+        if (user?.username) {
+          allUsers = leaveRoom(socket.id, allUsers);
+          socket.to(chatRoom).emit('chatroom_users', allUsers);
+          socket.to(chatRoom).emit('receive_message', {
+            message: `${user.username} has disconnected from the chat.`,
+          });
+        }
+      });
 }); 
     
 app.get('/', (req, res) => {

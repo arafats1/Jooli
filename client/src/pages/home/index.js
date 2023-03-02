@@ -20,10 +20,10 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
 
         <select className={styles.input} onChange={(e) => setRoom(e.target.value)}>
           <option>-- Select Room --</option>
-          <option value='javascript'>Code</option>
-          <option value='node'>Football</option>
-          <option value='express'>Investments</option>
-          <option value='react'>Fifa</option>
+          <option value='Code Chat'>Code</option>
+          <option value='Premier League Chat'>Premier League</option>
+          <option value='Lets Invest'>Investments</option>
+          <option value='Fifa 23 Chat'>Fifa</option>
         </select>
 
         <button className='btn btn-secondary' style={{ width: '100%' }} onClick={joinRoom}>Join Room</button>

@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const RoomAndUsers = ({ socket, username, room }) => {
-  const [roomUsers, setRoomUsers] = useState([]);
+  const [roomUsers, setRoomUsers] = useState(() => {
+    const storedRoomUsers = localStorage.getItem('roomUsers');
+    return storedRoomUsers ? JSON.parse(storedRoomUsers) : [];
+
+    });
 
   const navigate = useNavigate();
 
@@ -15,6 +19,12 @@ const RoomAndUsers = ({ socket, username, room }) => {
 
     return () => socket.off('chatroom_users');
   }, [socket]);
+
+    useEffect(() => {
+    // Store roomUsers and room in local storage whenever it changes
+    localStorage.setItem('roomUsers', JSON.stringify(roomUsers));
+    }, [roomUsers]);
+
 
   const leaveRoom = () => {
     const __createdtime__ = Date.now();
