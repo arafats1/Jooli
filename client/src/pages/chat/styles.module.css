@@ -63,3 +63,25 @@
     border: 1px solid rgb(153, 217, 234);
     font-size: 0.9rem;
   }
+  @media screen and (max-width: 768px) {
+    .chatContainer {
+      padding-left: 18px;
+    }
+    .formContainer {
+      width: 90%;
+      max-width: 400px;
+    }
+     
+  }
+
+  @media screen and (max-width: 480px) {
+    .formContainer {
+      padding: 16px;
+    }
+  
+    .input {
+      padding: 8px;
+      font-size: 0.8rem;
+    }
+  }
+  
