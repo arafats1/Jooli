@@ -28,7 +28,7 @@ let allUsers = [];
 io.on('connection', (socket) => {
     console.log(`User connected ${socket.id}`);
 
-    // Add a user to a room
+    // Add a user to a room.
     socket.on('join_room', (data) => {
       const { username, room } = data; // Data sent from client when join_room event emitted
       socket.join(room); // Join the user to a socket room
